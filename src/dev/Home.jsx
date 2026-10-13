@@ -13,7 +13,7 @@ export default function Home({ onStart, onRecruiter, soundEnabled }) {
                     </h1>
                     <p className="dev-role">SOFTWARE ENGINEER</p>
                     <p className="hero-subtitle">
-                        Full-stack engineer. Pixel enthusiast. Here to build the next level.
+                        Full-stack engineer. Gamer Enthusist 
                     </p>
                     <div className="hero-actions">
                         {/* These callbacks let the app shell handle navigation and the shared resume drawer. */}
@@ -53,7 +53,7 @@ export default function Home({ onStart, onRecruiter, soundEnabled }) {
                     <button
                         className="button"
                         type="button"
-                        OnClick
+                        onClick
                     >
                         REACH OUT
                     </button>

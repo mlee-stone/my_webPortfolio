@@ -4,48 +4,7 @@ import { playBeep, playSelect } from '../utils/audio.js';
 // Content for the design portfolio section. Each item defines the project narrative,
 // supporting imagery, and the ordered case-study steps shown in the walkthrough.
 const projects = [
-    {
-        title: 'FLYERS',
-        category: 'EDITORIAL DESIGN // CONCEPT',
-        description: 'A quiet, tactile editorial concept for a publication about slower living and finding inspiration outdoors.',
-        image: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1200&q=85',
-        imageAlt: 'Soft morning light over an open field',
-        icon: 'F',
-        caption: 'CASE STUDY 01',
-        walkthrough: [
-            {
-                label: 'OVERVIEW',
-                title: 'A slower kind of field guide',
-                body: 'Field Notes is a self-initiated editorial concept for readers looking to reconnect with the outdoors. The goal was to make a small publication feel calm, tactile, and worth keeping.',
-                points: ['Editorial concept and visual direction', 'A warm, unhurried reading experience', 'Designed to feel at home in print'],
-            },
-            {
-                label: 'MEDIUMS',
-                title: 'Built for the page',
-                body: 'The direction explores how a print-first publication can carry its identity across a cover, feature spreads, and small supporting details without losing its quiet character.',
-                points: ['Publication cover and editorial spreads', 'Typography, layout, and visual identity', 'Photography and image art direction'],
-            },
-            {
-                label: 'ITERATIONS',
-                title: 'From mood to rhythm',
-                body: 'The concept moved from gathering visual references to testing type and page structure. Each pass focused on making the layouts easier to read while keeping enough open space for the imagery to breathe.',
-                points: ['Explored warm, nature-led references', 'Compared editorial grids and type pairings', 'Refined spacing, contrast, and image scale'],
-            },
-            {
-                label: 'TOOLS',
-                title: 'A considered design toolkit',
-                body: 'The work is guided by practical editorial-design tools and techniques: a repeatable grid, a restrained type system, and a consistent approach to selecting and placing imagery.',
-                points: ['Editorial grid and page-layout studies', 'Typography pairing and hierarchy', 'Color palette and image art direction'],
-            },
-            {
-                label: 'DESIGN NOTES',
-                title: 'Why keep it quiet?',
-                body: 'The subject is about slowing down, so the design should invite the same pace. A restrained palette, generous margins, and thoughtful image crops give the stories room instead of competing for attention.',
-                points: ['Use contrast to guide, not overwhelm', 'Let photography carry some of the mood', 'Make every detail feel intentional and tactile'],
-            },
-        ],
-    },
-];
+]
 
 // A guided case-study modal that exposes project thinking in a readable, step-by-step flow.
 // The active-step ref keeps keyboard navigation in sync without re-registering its listener per keypress.

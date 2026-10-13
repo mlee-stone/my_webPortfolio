@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { playBeep, playSelect } from '../utils/audio.js';
 
+// Static dataset containing arcade-themed project details and multi-step walkthroughs
 const projects = [
     {
         title: 'BUG TRACKER PROJECT',
@@ -42,19 +43,87 @@ const projects = [
             },
         ],
     },
+
+    {
+        title: 'FLOWN THE COOP!',
+        description: 'Flown the Coop! is a fast-paced, 2D runner/platformer designed for mobile devices. The player controls a furious mother hen chasing down foxes that have raided her chicken coop.',
+        tags: ['C#', 'Unity', 'Blender', 'Microsoft Playfab'],
+        art: 'Blender, Adobe Illustrator, Photoshop',
+        icon: 'F',
+        caption: 'JUST STARTED',
+        walkthrough: [
+            {
+                label: 'OVERVIEW',
+                title: 'A mobile hero-collector runner with arcade combat',
+                body: 'Flown the Coop! combines the high-velocity twitch reflexes of a 2D auto-runner with the long-term roster collection and progression of a gacha meta-game. Players control furious mother hens chasing down the Fox Cartel across procedural biomes to reclaim their stolen eggs.',
+                points: [
+                    'Two-touch runner controls paired with cinematic "Angry Chicken" combat phases',
+                    'Vintage Toy Dispenser gacha mechanic powered by a player-friendly dual-currency economy',
+                    'Global Flock Mastery upgrade tree driven by character collection milestones',
+                ],
+            },
+            {
+                label: 'STACK',
+                title: 'Scalable mobile architecture built for performance',
+                body: 'Built on Unity (C#) for cross-platform mobile delivery, supported by Microsoft PlayFab as a Backend-as-a-Service (BaaS). PlayFab handles secure server-side RNG for gacha drops, cloud save inventories, and global leaderboard brackets without needing custom server infrastructure.',
+                points: [
+                    'Unity (C#) component-based 2D engine targeting iOS and Google Play Store',
+                    'Microsoft PlayFab BaaS for cloud save data, leaderboards, and secure RNG',
+                    'Modular prefab chunk system for procedural biome map generation and Object Pooling',
+                ],
+            },
+            {
+                label: 'PROCESS',
+                title: 'Designing around game feel, pacing, and retention',
+                body: 'The core loop balances casual 90-second biome sections into a structured 4.5-minute full run. Rather than breaking obstacle reaction times with raw physics velocity, speed upgrades scale Catch-Up Efficiency—allowing players to trigger Fox encounters more frequently while maintaining tight gameplay feel.',
+                points: [
+                    'Time-budgeted level design split across Coop, Barnyard, and Farmhouse biomes',
+                    'Juiced visual speed cues including orthographic camera scaling and parallax overdrive',
+                    'Optimized hot-dog-bun pricing curves ($0.99 for 5 coins; 2 coins per gacha spin)',
+                ],
+            },
+            {
+                label: 'CHALLENGES',
+                title: 'Solving character progression traps and currency bloat',
+                body: 'A key challenge was preventing "upgrade regret"—where pulling a new legendary chicken feels useless because the player spent all their coins on their starter bird. Pivoting to a global class-based upgrade tree made newly pulled birds instantly viable while keeping collection central to progression.',
+                points: [
+                    'Eliminated character-stat locks via the global Flock Mastery tree',
+                    'Decoupled visual speed feel from raw physics velocity to keep obstacles reactable',
+                    'Consolidated virtual economy down to two clean currencies (Copper and Gold Coins)',
+                ],
+            },
+            {
+                label: 'OUTCOME',
+                title: 'A product-ready mobile GDD and system design',
+                body: 'The result will be a production-ready Game Design Document and architecture blueprint, demonstrating a full-stack game development loop that merges mobile monetization best practices with modular C# game systems.',
+                points: [
+                    'Fully defined hero-collector runner core loop and live-ops content plan',
+                    'Fair F2P monetization with reliable reward paths for non-paying players',
+                    'Production-ready client/server architecture bridging Unity 2D and PlayFab',
+                ],
+            },
+        ],
+    },
 ];
 
+/**
+ * Modal component that displays a multi-step project walkthrough.
+ * Handles keyboard navigation (Arrow keys, Escape) and accessibility traps.
+ */
 function ProjectWalkthrough({ project, initialStep, soundEnabled, onClose }) {
     const [activeStep, setActiveStep] = useState(initialStep);
     const closeButtonRef = useRef(null);
     const activeStepRef = useRef(activeStep);
+
     const step = project.walkthrough[activeStep];
     const isLastStep = activeStep === project.walkthrough.length - 1;
 
+    // Keep ref synchronized with state for use inside event listeners
     useEffect(() => {
         activeStepRef.current = activeStep;
     }, [activeStep]);
 
+    // Handle body scroll lock, focus management, and global keydown events
     useEffect(() => {
         const previousOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
@@ -64,11 +133,13 @@ function ProjectWalkthrough({ project, initialStep, soundEnabled, onClose }) {
             if (event.key === 'Escape') onClose();
             const currentStep = activeStepRef.current;
             let nextStep;
+
             if (event.key === 'ArrowRight' && currentStep < project.walkthrough.length - 1) {
                 nextStep = currentStep + 1;
             } else if (event.key === 'ArrowLeft' && currentStep > 0) {
                 nextStep = currentStep - 1;
             }
+
             if (nextStep !== undefined) {
                 if (soundEnabled) playSelect();
                 setActiveStep(nextStep);
@@ -82,6 +153,7 @@ function ProjectWalkthrough({ project, initialStep, soundEnabled, onClose }) {
         };
     }, [onClose, project.walkthrough.length, soundEnabled]);
 
+    // Helper function to change steps and trigger audio feedback
     const goToStep = (nextStep) => {
         if (soundEnabled) playSelect();
         setActiveStep(nextStep);
@@ -92,6 +164,7 @@ function ProjectWalkthrough({ project, initialStep, soundEnabled, onClose }) {
             className="demo-backdrop"
             role="presentation"
             onMouseDown={(event) => {
+                // Close modal if clicking outside the panel
                 if (event.target === event.currentTarget) onClose();
             }}
         >
@@ -102,6 +175,7 @@ function ProjectWalkthrough({ project, initialStep, soundEnabled, onClose }) {
                 aria-labelledby="walkthrough-title"
                 aria-describedby="walkthrough-copy"
             >
+                {/* Topbar with title, close button, and step progress buttons */}
                 <div className="dev-walkthrough-topbar">
                     <div className="dev-walkthrough-heading">
                         <div>
@@ -136,6 +210,7 @@ function ProjectWalkthrough({ project, initialStep, soundEnabled, onClose }) {
                     </div>
                 </div>
 
+                {/* Main walkthrough content area */}
                 <div className="dev-walkthrough-content" key={step.label} aria-live="polite">
                     <div className={`project-art project-art--${project.art} dev-walkthrough-art`} aria-hidden="true">
                         <div className="art-badge"><span>{project.icon}</span></div>
@@ -152,6 +227,7 @@ function ProjectWalkthrough({ project, initialStep, soundEnabled, onClose }) {
                     </ul>
                 </div>
 
+                {/* Modal footer navigation buttons */}
                 <div className="demo-footer dev-walkthrough-footer">
                     <button
                         className="button button--plain button--small"
@@ -181,9 +257,14 @@ function ProjectWalkthrough({ project, initialStep, soundEnabled, onClose }) {
     );
 }
 
+/**
+ * Main Projects component rendering the grid of available arcade cabinets (projects)
+ * and managing the active state for the project walkthrough modal.
+ */
 export default function Projects({ soundEnabled }) {
     const [activeProject, setActiveProject] = useState(null);
 
+    // Opens a project modal, optionally specifying a starting step
     const openProject = (project, initialStep = 0) => {
         if (soundEnabled) playSelect();
         setActiveProject({ project, initialStep });
@@ -191,10 +272,11 @@ export default function Projects({ soundEnabled }) {
 
     return (
         <section aria-labelledby="projects-title">
-            <p className="eyebrow">SELECT YOUR GAME // {projects.length} {projects.length === 1 ? 'CABINET' : 'CABINETS AVAILABLE'}</p>
+            <p className="eyebrow">PROJECT TERMINAL // {projects.length} {projects.length === 1 ? 'CABINET' : 'CABINETS AVAILABLE'}</p>
             <h1 className="section-heading" id="projects-title">ARCADE CABINETS</h1>
-            <p className="section-lede">Pick a cabinet to preview a build, the ideas behind it, and the tech powering the game.</p>
+            <p className="section-lede">Select a project to explore the system architecture, design rationale, and technical engineering behind it.</p>
 
+            {/* Grid of project cards */}
             <div className="projects-grid">
                 {projects.map((project) => (
                     <article className="project-card" key={project.title}>
@@ -231,6 +313,7 @@ export default function Projects({ soundEnabled }) {
                 ))}
             </div>
 
+            {/* Conditionally render the walkthrough modal if a project is selected */}
             {activeProject && (
                 <ProjectWalkthrough
                     project={activeProject.project}

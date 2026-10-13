@@ -1,6 +1,10 @@
 const programmingSkills = [
-    { name: 'React', value: 95 },
-    { name: 'JavaScript', value: 90 },
+    { name: 'Java', value: 90 },
+    { name: 'C#', value: 90 },
+    { name: 'Game Development', value: 60 },
+    { name: 'Unity Development', value: 79 },
+    { name: 'React', value: 85 },
+    { name: 'JavaScript', value: 75 },
     { name: 'CSS / Canvas', value: 85 },
     { name: 'Node.js', value: 80 },
 ];
@@ -23,11 +27,6 @@ export default function About({ designerMode = false }) {
         <section className="screen-content" aria-labelledby="about-title">
             <p className="eyebrow">{designerMode ? 'CREATIVE PROFILE // LEVEL SELECT' : 'PLAYER DATA // LEVEL SELECT'}</p>
             <h1 className="section-heading" id="about-title">CHARACTER PROFILE</h1>
-            <p className="section-lede">
-                {designerMode
-                    ? 'A visual storyteller drawn to expressive typography, thoughtful identities, and the details that make a design feel alive.'
-                    : 'A curious builder with a soft spot for sharp interfaces and satisfying interactions.'}
-            </p>
 
             <div className="profile-layout">
                 <article className="panel profile-card">
@@ -35,19 +34,26 @@ export default function About({ designerMode = false }) {
                         <div className="portrait-avatar" aria-hidden="true">P1</div>
                         <span className="portrait-label">PLAYER 01</span>
                     </div>
-                    <h2 className="profile-name">{designerMode ? 'EMILEE STONE' : 'PLAYER ONE'}</h2>
+                    <h2 className="profile-name">{designerMode ? 'EMILEE STONE' : 'EMILEE STONE'}</h2>
                     <dl>
+                        <div className="profile-stat">
+                            <dt>ABOUT ME</dt>
+                            <dd><span className="high-score">Hello! My Name is Emilee!</span></dd>
+                            <dd>{}</dd>
+                            <dd>{designerMode ? 'I have worked in the graphic design field for over 5+ years' : 'I am 2027 computer science graduate.'} driven by a passion for creative problem-solving and creative expression that brings joy to users.</dd>
+                        </div>
+                        
                         <div className="profile-stat">
                             <dt>PLAYER LEVEL</dt>
                             <dd><span className="high-score">99</span></dd>
                         </div>
                         <div className="profile-stat">
                             <dt>CLASS</dt>
-                            <dd>{designerMode ? 'Graphic Designer' : 'Full-Stack Engineer'}</dd>
+                            <dd>{designerMode ? 'Graphic Designer' : 'Software Engineer'}</dd>
                         </div>
                         <div className="profile-stat">
                             <dt>SPECIALTY</dt>
-                            <dd>{designerMode ? 'Flyers, Social Media Content, Print Advertising, Digital Advertising, and Web Graphics' : 'React &amp; Game Dev'}</dd>
+                            <dd>{designerMode ? 'Flyers, Social Media Content, Print Advertising, Digital Advertising, and Web Graphics' : 'Front End Development, Mobile Development'}</dd>
                         </div>
                         <div className="profile-stat">
                             <dt>STATUS</dt>
@@ -76,11 +82,6 @@ export default function About({ designerMode = false }) {
                             </div>
                         </div>
                     ))}
-                    <p className="profile-note">
-                        {designerMode
-                            ? 'I turn ideas into clear, characterful visual systems—from the first sketch to the final print-ready detail.'
-                            : 'I turn ideas into responsive, accessible experiences—then add a little extra polish to make them memorable.'}
-                    </p>
                 </div>
             </div>
         </section>
